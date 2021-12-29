@@ -49,8 +49,11 @@ export default defineComponent({
 
     const titleName = computed(() => me?.value?.name);
 
-    // The title is undefined in the initial SSR get call:
+    // The titleName is undefined in the initial SSR get call
+    // but is rendered and in the __APPOLO_STATE__ object
+    // How to test:
     // curl --location --request GET 'http://localhost:8080/' | grep User:
+
     useMeta({
       // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       title: `User: ${titleName.value} | Quasar Apollo Test Page`,
