@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue';
+import { defineComponent, computed, useSSRContext, getCurrentInstance } from 'vue';
 import gql from 'graphql-tag';
 import {useQuery, useResult} from '@vue/apollo-composable';
 import { useMeta} from 'quasar';
@@ -36,9 +36,16 @@ export default defineComponent({
   name: 'PageIndex',
   setup() {
 
+    // Set $isServer param as per https://github.com/vuejs/apollo/issues/1100#issuecomment-899701791
+    // This does not seem to make a difference and values are still undefined on server side
+    const ssrContext = process.env.SERVER ? useSSRContext() : null;
+    const $vm = getCurrentInstance();
+    if ($vm) $vm.$isServer = !!ssrContext;
+
     const {
       result,
     } = useQuery(meQuery, {}, {
+      prefetch: true,
       errorPolicy: 'all',
     });
     const me = useResult(result, null, (data: meQueryResult) => data.me);
