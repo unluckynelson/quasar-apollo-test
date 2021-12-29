@@ -16,6 +16,9 @@
     <link rel="icon" type="image/ico" href="favicon.ico">
   </head>
   <body>
+    <% if (ctx.mode.ssr && process.env.MODE === 'ssr') { %>
+        {{ renderApolloState() }}
+    <% } %>
     <!-- DO NOT touch the following DIV -->
     <div id="q-app"></div>
   </body>
