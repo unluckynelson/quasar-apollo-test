@@ -1,7 +1,9 @@
 <template>
   <q-page class="row items-center justify-evenly">
     Query Results: <br/>
-    {{ me }}
+    {{ me }}<br/><br/>
+
+    User: {{ me.name }}
   </q-page>
 </template>
 
@@ -40,11 +42,18 @@ export default defineComponent({
       errorPolicy: 'all',
     });
     const me = useResult(result, null, (data: meQueryResult) => data.me);
-    console.log(me?.value?.name);
+
+    // This will be undefined in the server's console
+    // even though ssr will output the value in the html
+    console.log('User\'s name:', me?.value?.name);
+
     const titleName = computed(() => me?.value?.name);
+
+    // The title is undefined in the initial SSR get call:
+    // curl --location --request GET 'http://localhost:8080/' | grep User:
     useMeta({
       // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-      title: `${titleName.value} | Quasar Apollo Test Page`,
+      title: `User: ${titleName.value} | Quasar Apollo Test Page`,
     });
     return { me };
   }

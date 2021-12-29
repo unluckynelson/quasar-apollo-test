@@ -1,6 +1,6 @@
-# Quasar App (apollo-ssr-test)
+# Quasar, Vue3, Apollo, SSR App (apollo-ssr-test)
 
-A Quasar Framework app
+A Quasar Framework app to test Apollo SSR queries
 
 ## Install the dependencies
 ```bash
@@ -9,7 +9,7 @@ yarn
 
 ### Start the app in development mode (hot-code reloading, error reporting, etc.)
 ```bash
-quasar dev
+quasar dev -m ssr
 ```
 
 ### Lint the files
