@@ -56,7 +56,7 @@ export default defineComponent({
 
     const titleName = computed(() => me?.value?.name);
 
-    // The titleName is undefined in the initial SSR get call
+    // The `me.name` is undefined in the initial SSR get call
     // but is rendered and in the __APPOLO_STATE__ object
     // How to test:
     // curl --location --request GET 'http://localhost:8080/' | grep User:
